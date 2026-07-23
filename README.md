@@ -1,0 +1,2 @@
+# Pico MAX7219 Driver
+This is a simple driver for the MAX7219 LED dot matrix display, designed to work with the Raspberry Pi Pico C SDK. The driver allows you to control the display using SPI communication.
