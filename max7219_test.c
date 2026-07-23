@@ -1,36 +1,30 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
+#include "max7219.h"
 
-// SPI Defines
-// We are going to use SPI 0, and allocate it to the following GPIO pins
-// Pins can be changed, see the GPIO function select table in the datasheet for information on GPIO assignments
 #define SPI_PORT spi0
-#define PIN_MISO 16
-#define PIN_CS   17
-#define PIN_SCK  18
-#define PIN_MOSI 19
-
-
+#define SPI_BAUD_RATE 1*1000*1000 //1 MHz
+#define SPI_CLK 2
+#define SPI_MOSI 3
+#define SPI_MISO 4
+#define SPI_CS 5
 
 int main()
 {
     stdio_init_all();
 
-    // SPI initialisation. This example will use SPI at 1MHz.
-    spi_init(SPI_PORT, 1000*1000);
-    gpio_set_function(PIN_MISO, GPIO_FUNC_SPI);
-    gpio_set_function(PIN_CS,   GPIO_FUNC_SIO);
-    gpio_set_function(PIN_SCK,  GPIO_FUNC_SPI);
-    gpio_set_function(PIN_MOSI, GPIO_FUNC_SPI);
-    
-    // Chip select is active-low, so we'll initialise it to a driven-high state
-    gpio_set_dir(PIN_CS, GPIO_OUT);
-    gpio_put(PIN_CS, 1);
-    // For more examples of SPI use see https://github.com/raspberrypi/pico-examples/tree/master/spi
+    spi_init(SPI_PORT, SPI_BAUD_RATE);
+
+    gpio_set_function(SPI_CLK, GPIO_FUNC_SPI);
+    gpio_set_function(SPI_MOSI, GPIO_FUNC_SPI);
+    gpio_set_function(SPI_MISO, GPIO_FUNC_SPI);
+    gpio_set_function(SPI_CS, GPIO_FUNC_SPI);
+
+    spi_set_format(SPI_PORT, 16, SPI_CPOL_0, SPI_CPHA_0, SPI_MSB_FIRST);
+
 
     while (true) {
-        printf("Hello, world!\n");
-        sleep_ms(1000);
+        tight_loop_contents();
     }
 }
