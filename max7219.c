@@ -71,3 +71,29 @@ void max7219_shutdown_mode(max7219_t mx, uint8_t display, bool on){
 void max7219_display_test(max7219_t mx, uint8_t display, bool on){
     max7219_send_cmd(mx, Display_Test, on, display);
 }
+
+void max7219_set_LED(display_t *disp,uint8_t x, uint8_t y, bool set){
+    if(set){
+        ((uint8_t *)(disp))[y] = ((uint8_t *)(disp))[y] | 1<<(7-x);
+    }
+    else{
+        ((uint8_t *)(disp))[y] = ((uint8_t *)(disp))[y] & ~(1<<(7-x));
+    }
+}
+
+void max7219_clear_display(display_t *disp){
+    for (uint8_t i = 0; i < 8; i++)
+    {
+        ((uint8_t *)(disp))[i] = 0;
+    }
+    
+}
+
+void max7219_update_display(max7219_t mx, display_t *disp, uint8_t display){
+    for (uint8_t i = 0; i < 8; i++)
+    {
+        max7219_send_cmd(mx, Digit0 + i, ((uint8_t *)(disp))[i], display);
+    }
+    
+}
+

@@ -32,6 +32,12 @@ typedef struct{
 
 }max7219_t;
 
+/**
+ * @brief display_t use to hold the state of a display, used to modify display view
+ */
+typedef struct{
+    uint8_t digit0, digit1, digit2, digit3, digit4, digit5, digit6, digit7; 
+}display_t;
 
 /**
  * @brief send command by choosing mode, value and display to use
@@ -92,3 +98,27 @@ void max7219_shutdown_mode(max7219_t mx, uint8_t display, bool on);
  * @param on turn ON - `true` ; turn OFF - `false`
  */
 void max7219_display_test(max7219_t mx, uint8_t display, bool on);
+
+/**
+ * @brief set the state of LEDs using x,y coordinates on `display_t`
+ * @warning update display after setting LEDs
+ * @param disp display_t pointer
+ * @param x set led
+ * @param y choose digit
+ * @param set set or reset LED
+ */
+void max7219_set_LED(display_t *disp, uint8_t x, uint8_t y, bool set);
+/**
+ * @brief clear the LEDs state on `display_t`
+ * @warning update display after clearing LEDs
+ * @param disp display_t pointer
+ */
+void max7219_clear_display(display_t *disp);
+
+/**
+ * @brief update display(s) based on the LEDs state on `display_t` variable
+ * @param mx instance for max7219
+ * @param disp display_t pointer to the variable holding the state
+ * @param display apply to display(s)
+ */
+void max7219_update_display(max7219_t mx, display_t *disp, uint8_t display);
