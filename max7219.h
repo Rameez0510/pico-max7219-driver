@@ -45,9 +45,18 @@ void max7219_send_cmd(max7219_t mx, uint8_t mode, uint8_t value, uint8_t display
 
 /**
  * @brief initialize the max7219 device with no decode mode, minimum intensity, scan limit to all digits
+ * @warning initialize CS pin as general GPIO 
  * @param mx pointer to max7219_t instance
  * @param spi_port instance for SPI communication
  * @param cs_pin CS pin used
  * @param displays Number of displays used
  */
 void max7219_init(max7219_t *mx, spi_inst_t *spi_port, uint8_t cs_pin, uint8_t displays);
+
+/**
+ * @brief set intestity of display(s)
+ * @param mx instance for max7219
+ * @param level level of intensity in range `0-15`
+ * @param display apply to display(s)
+ */
+void max7219_set_intensity(max7219_t mx, uint8_t level, uint8_t display);
