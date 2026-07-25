@@ -38,23 +38,16 @@ int main()
     max7219_send_cmd(mx, Digit0, 0b11110000, 0b1000);
     max7219_send_cmd(mx, Digit0, 0b10101010, 0b0001);
 
+    sleep_ms(1000);
 
     while (true) {
         // tight_loop_contents();
-        for (uint8_t i = 0x00; i < 0x10; i++)
-        {
-            // max7219_send_cmd(mx, Intensity, i, 0b1000);
-            max7219_set_intensity(mx, i, 0b0001);
-            max7219_set_intensity(mx, 16-1-i, 0b1000);
-            sleep_ms(100);
-        }
-        for (uint8_t i = 0x00; i < 0x10; i++)
-        {
-            // max7219_send_cmd(mx, Intensity, 16-i-1, 0b1000);
-            max7219_set_intensity(mx, 16-i-1, 0b0001);
-            max7219_set_intensity(mx, i, 0b1000);
-            sleep_ms(100);
-        }
-        
+        max7219_display_test(mx, 0b1000, true);
+        printf("display test on\n");
+        sleep_ms(1000);
+        max7219_display_test(mx, 0b1000, false);
+        printf("display test off\n");
+        sleep_ms(1000);
+
     }
 }

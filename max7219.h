@@ -18,7 +18,7 @@
 #define Display_Test 0x0F
 
 //modes
-#define No_Decode 0x00
+#define Decode_Mode_No_Decode 0x00
 #define Shutdown_Mode_ON 0x00
 #define Shutdown_Mode_OFF 0x01
 
@@ -60,3 +60,35 @@ void max7219_init(max7219_t *mx, spi_inst_t *spi_port, uint8_t cs_pin, uint8_t d
  * @param display apply to display(s)
  */
 void max7219_set_intensity(max7219_t mx, uint8_t level, uint8_t display);
+
+/**
+ * @brief set decode mode for each digit each display
+ * @param mx instance for max7219
+ * @param digit digits to be set to decode mode (eg. for digit 1, send: `0b00000010`)
+ * @param display apply to display(s)
+ */
+void max7219_set_decode_mode(max7219_t mx, uint8_t digit, uint8_t display);
+
+/**
+ * @brief set the scan limit for each display
+ * @param mx instance for max7219
+ * @param digits scan limit upto digit `0-7`
+ * @param display apply to display(s)
+ */
+void max7219_set_scan_limit(max7219_t mx, uint8_t digits, uint8_t display);
+
+/**
+ * @brief turn on/off shutdown mode (turn on/off display(s))
+ * @param mx instance for max7219
+ * @param display apply to display(s)
+ * @param on turn ON - `true` ; turn OFF - `false`
+ */
+void max7219_shutdown_mode(max7219_t mx, uint8_t display, bool on);
+
+/**
+ * @brief test all LEDs of display(s)
+ * @param mx instance for max7219
+ * @param display apply to display(s)
+ * @param on turn ON - `true` ; turn OFF - `false`
+ */
+void max7219_display_test(max7219_t mx, uint8_t display, bool on);

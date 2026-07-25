@@ -24,7 +24,7 @@ void max7219_init(max7219_t *mx, spi_inst_t *spi_port, uint8_t cs_pin, uint8_t d
     max7219_send_cmd(*mx, Shutdown_Mode, 0x00, 0xFF); //turn on shutdown mode
 
     //initialize with no decode mode, minimum intensity, scan limit to all digits
-    max7219_send_cmd(*mx, Decode_Mode, No_Decode, 0xFF);
+    max7219_send_cmd(*mx, Decode_Mode, Decode_Mode_No_Decode, 0xFF);
     max7219_send_cmd(*mx, Intensity, 0x00, 0xFF);
     max7219_send_cmd(*mx, Scan_Limit, 0x07, 0xFF);
 
@@ -54,4 +54,20 @@ void max7219_send_cmd(max7219_t mx, uint8_t mode, uint8_t value, uint8_t display
 
 void max7219_set_intensity(max7219_t mx, uint8_t level, uint8_t display){
     max7219_send_cmd(mx, Intensity, level, display);
+}
+
+void max7219_set_decode_mode(max7219_t mx, uint8_t digit, uint8_t display){
+    max7219_send_cmd(mx, Decode_Mode, digit, display);
+}
+
+void max7219_set_scan_limit(max7219_t mx, uint8_t digits, uint8_t display){
+    max7219_send_cmd(mx, Scan_Limit, digits, display);
+}
+
+void max7219_shutdown_mode(max7219_t mx, uint8_t display, bool on){
+    max7219_send_cmd(mx, Shutdown_Mode, ~on, display);
+}
+
+void max7219_display_test(max7219_t mx, uint8_t display, bool on){
+    max7219_send_cmd(mx, Display_Test, on, display);
 }
