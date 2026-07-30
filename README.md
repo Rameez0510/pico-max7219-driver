@@ -30,3 +30,10 @@ The driver provides the following functions:
 | `max7219_update_display()` | Updates display(s) with the data from `display_t` instance. | `max7219_update_display(mx, &disp0, 0b0101);` |
 | `max7219_display_char()` | Displays a character on display(s) | `max7219_display_char(mx, '5', 0b0011);` |
 
+## Examples
+### Example 1: 0000 to 9999 counting
+- The [count_0_to_9999.c](Examples/count_0_to_9999.c) example demonstrates the counting from 0000 to 9999 on a 4-digit MAX7219 display. 
+<video controls width="100%" poster="Examples/count_0_to_9999.mp4">
+  <source src="Examples/count_0_to_9999.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
