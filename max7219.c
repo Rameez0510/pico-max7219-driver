@@ -2,6 +2,7 @@
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
 #include "max7219.h"
+#include "symbols.h"
 
 void max7219_init(max7219_t *mx, spi_inst_t *spi_port, uint8_t cs_pin, uint8_t displays){
     mx->spi_i = spi_port;
@@ -97,3 +98,10 @@ void max7219_update_display(max7219_t mx, display_t *disp, uint8_t display){
     
 }
 
+void max7219_display_char(max7219_t mx, char c, uint8_t display){
+    for (uint8_t i = 0; i < 8; i++)
+    {
+        max7219_send_cmd(mx, Digit0 + i, font6x8[(c-48)*8 + i], display);
+    }
+    
+}

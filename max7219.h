@@ -122,3 +122,11 @@ void max7219_clear_display(display_t *disp);
  * @param display apply to display(s)
  */
 void max7219_update_display(max7219_t mx, display_t *disp, uint8_t display);
+
+/**
+ * @brief display a character on display(s)
+ * @param mx instance for max7219
+ * @param c char type character to be displayed
+ * @param display apply to display(s)
+ */
+void max7219_display_char(max7219_t mx, char c, uint8_t display);
